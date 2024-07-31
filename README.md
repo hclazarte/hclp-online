@@ -25,19 +25,19 @@ El objetivo de este proyecto es diseñar y desarrollar una maqueta y prototipo i
 El proyecto está estructurado de la siguiente manera:
 
 hclp-online/
-├── public/
-│ ├── index.html
-│ └── ...
-├── src/
-│ ├── components/
-│ │ └── ... (Componentes React)
-│ ├── App.js
-│ ├── index.js
-│ └── ...
-├── .gitignore
-├── package.json
-└── README.md
 
+├── public/<br>
+│ ├── index.html<br>
+│ └── ...<br>
+├── src/<br>
+│ ├── components/<br>
+│ │ └── ... (Componentes React)<br>
+│ ├── App.js<br>
+│ ├── index.js<br>
+│ └── ...<br>
+├── .gitignore<br>
+├── package.json<br>
+└── README.md<br>
 
 ## Instalación y Configuración
 
@@ -49,6 +49,11 @@ Sigue los siguientes pasos para configurar y ejecutar el proyecto localmente:
    git clone https://github.com/tu-usuario/hclp-online.git
    cd hclp-online
 
-npm install
+2. **Instalar Dependencias:**
 
-npm start
+   ```sh
+   npm install   
+
+3. **Iniciar el Servidor:**
+   ```sh
+   npm start
