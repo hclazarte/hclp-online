@@ -7,7 +7,7 @@ Este proyecto es una maqueta y prototipo inicial de la interfaz de usuario de un
 - **Universidad:** Broward International University
 - **Maestría:** Ciencias de Ingeniería de Software Informático
 - **Curso:** PROGRAMMING THE INTERNET (CSE642)
-- **Tarea:** Asignación No. 1 - Análisis de las Tecnologías de la Programación en Internet ENTREGA FINAL
+- **Tarea:** Tarea: Asignación No. 2 Diseño de la maqueta y prototipo inicial de la Interfaz de usuario de la Plataforma eCommerce. Interactiva y Responsiva usando HTML5, CSS3 y Bootstrap - ENTREGA AVANCE
 - **Profesor:** PHD Cristian Gabriel Zambrano Vega
 - **Alumno:** Ing. Héctor Cristóbal Lazarte
 
