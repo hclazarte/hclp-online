@@ -25,7 +25,7 @@ function Profile() {
   const validate = () => {
     const errors = {};
     if (!formData.fullName || formData.fullName.length < 6) {
-      errors.fullName = 'El nombre completo es obligatorio y debe tener al menos 2 caracteres.';
+      errors.fullName = 'El nombre completo es obligatorio y debe tener al menos 6 caracteres.';
     }
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'El correo electrónico es obligatorio y debe ser válido.';
