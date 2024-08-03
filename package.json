@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run copy-config",
+    "copy-config": "copy ./public/web.config ./build/web.config",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
