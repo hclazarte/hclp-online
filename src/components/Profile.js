@@ -15,15 +15,47 @@ function Profile() {
     confirmPassword: '',
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const validate = () => {
+    const errors = {};
+    if (!formData.fullName || formData.fullName.length < 6) {
+      errors.fullName = 'El nombre completo es obligatorio y debe tener al menos 2 caracteres.';
+    }
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'El correo electrónico es obligatorio y debe ser válido.';
+    }
+    if (formData.phone && !/^\+?\d*$/.test(formData.phone)) {
+      errors.phone = 'El teléfono debe ser un número válido.';
+    }
+    if (!formData.city || !/^[a-zA-Z\s]+$/.test(formData.city)) {
+      errors.city = 'La ciudad es obligatoria y debe contener solo letras y espacios.';
+    }
+    if (!formData.state || !/^[a-zA-Z\s]+$/.test(formData.state)) {
+      errors.state = 'El estado/provincia es obligatorio y debe contener solo letras y espacios.';
+    }
+    if (formData.newPassword < 6) {
+      errors.newPassword = 'La nueva contraseña debe tener al menos 6 caracteres.';
+    }
+    if (formData.newPassword !== formData.confirmPassword) {
+      errors.confirmPassword = 'Las contraseñas no coinciden.';
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Manejar el envío del formulario
-    console.log('Formulario enviado', formData);
+    if (validate()) {
+      // Manejar el envío del formulario
+      console.log('Formulario enviado', formData);
+    }
   };
 
   return (
@@ -38,7 +70,11 @@ function Profile() {
             value={formData.fullName}
             onChange={handleChange}
             placeholder="Juan Pérez"
+            isInvalid={!!errors.fullName}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.fullName}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formEmail">
@@ -49,7 +85,11 @@ function Profile() {
             value={formData.email}
             onChange={handleChange}
             placeholder="juan.perez@example.com"
+            isInvalid={!!errors.email}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.email}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formPhone">
@@ -60,7 +100,11 @@ function Profile() {
             value={formData.phone}
             onChange={handleChange}
             placeholder="+1234567890"
+            isInvalid={!!errors.phone}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.phone}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formAddress">
@@ -81,8 +125,12 @@ function Profile() {
             name="city"
             value={formData.city}
             onChange={handleChange}
-            placeholder="Nuestra señora de La Paz"
+            placeholder="Ciudad de Bolivia"
+            isInvalid={!!errors.city}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.city}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formState">
@@ -92,8 +140,12 @@ function Profile() {
             name="state"
             value={formData.state}
             onChange={handleChange}
-            placeholder="CDMX"
+            placeholder="Pando"
+            isInvalid={!!errors.state}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.state}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formPostalCode">
@@ -115,7 +167,11 @@ function Profile() {
             value={formData.newPassword}
             onChange={handleChange}
             placeholder="******"
+            isInvalid={!!errors.newPassword}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.newPassword}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formConfirmPassword">
@@ -126,7 +182,11 @@ function Profile() {
             value={formData.confirmPassword}
             onChange={handleChange}
             placeholder="******"
+            isInvalid={!!errors.confirmPassword}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.confirmPassword}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Button variant="primary" type="submit">
