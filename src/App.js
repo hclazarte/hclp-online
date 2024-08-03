@@ -8,6 +8,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import './App.css';
 
 function App() {
   return (
