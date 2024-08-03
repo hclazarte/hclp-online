@@ -1,38 +1,48 @@
-.App {
-  text-align: center;
+/* Estilos globales */
+body {
+  background-color: #f8f9fa; /* Fondo gris claro */
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.centered-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 80vh;
 }
 
-.App-link {
-  color: #61dafb;
+/* Estilos de la barra de navegación */
+.navbar {
+  background-color: #343a40; /* Fondo oscuro */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-brand {
+  color: #ffffff !important; /* Texto blanco */
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important; /* Texto blanco */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #adb5bd !important; /* Color gris claro al pasar el ratón */
+}
+
+/* Estilos para las páginas */
+h1 {
+  color: #343a40; /* Color del texto del encabezado */
+  margin-bottom: 20px;
+}
+
+p {
+  color: #6c757d; /* Color gris para el texto */
+}
+
+/* Estilos para el contenedor de contenido */
+.centered-content {
+  text-align: center; /* Centrar el texto */
 }

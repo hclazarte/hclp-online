@@ -26,18 +26,7 @@ El proyecto está estructurado de la siguiente manera:
 
 hclp-online/
 
-├── public/<br>
-│ ├── index.html<br>
-│ └── ...<br>
-├── src/<br>
-│ ├── components/<br>
-│ │ └── ... (Componentes React)<br>
-│ ├── App.js<br>
-│ ├── index.js<br>
-│ └── ...<br>
-├── .gitignore<br>
-├── package.json<br>
-└── README.md<br>
+![Estructura](Estructura.png)
 
 ## Instalación y Configuración
 
