@@ -5,8 +5,8 @@ import { Navbar, Nav } from 'react-bootstrap';
 function NavBar() {
   return (
     <Navbar className="navbar" expand="lg">
-      <Navbar.Brand as={Link} to="/">hclp.online</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Brand as={Link} to="/" className="custom-brand">Tu Tienda en Línea</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-toggler" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/">Inicio</Nav.Link>
