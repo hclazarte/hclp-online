@@ -24,8 +24,10 @@ function Profile() {
 
   const validate = () => {
     const errors = {};
-    if (!formData.fullName || formData.fullName.length < 6) {
-      errors.fullName = 'El nombre completo es obligatorio y debe tener al menos 6 caracteres.';
+    const nameRegex = /^[a-zA-ZáéíóúñÁÉÍÓÚÑ\s]+$/;
+
+    if (!formData.fullName || formData.fullName.length < 6 || !nameRegex.test(formData.fullName)) {
+      errors.fullName = 'El nombre completo es obligatorio, debe tener al menos 6 caracteres y solo contener letras y espacios.';
     }
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'El correo electrónico es obligatorio y debe ser válido.';
@@ -33,13 +35,13 @@ function Profile() {
     if (formData.phone && !/^\+?\d*$/.test(formData.phone)) {
       errors.phone = 'El teléfono debe ser un número válido.';
     }
-    if (!formData.city || !/^[a-zA-Z\s]+$/.test(formData.city)) {
+    if (!formData.city || !nameRegex.test(formData.city)) {
       errors.city = 'La ciudad es obligatoria y debe contener solo letras y espacios.';
     }
-    if (!formData.state || !/^[a-zA-Z\s]+$/.test(formData.state)) {
+    if (!formData.state || !nameRegex.test(formData.state)) {
       errors.state = 'El estado/provincia es obligatorio y debe contener solo letras y espacios.';
     }
-    if (formData.newPassword < 6) {
+    if (formData.newPassword.length < 6 || formData.newPassword.length < 6) {
       errors.newPassword = 'La nueva contraseña debe tener al menos 6 caracteres.';
     }
     if (formData.newPassword !== formData.confirmPassword) {
