@@ -1,5 +1,7 @@
 # Proyecto eCommerce Interactivo y Responsivo
 
+[Puede verse en](https://hclp.online/)
+
 Este proyecto es una maqueta y prototipo inicial de la interfaz de usuario de una plataforma de eCommerce. Utiliza tecnologías modernas como HTML5, CSS3 y Bootstrap para garantizar una experiencia interactiva y responsiva. La implementación se ha realizado utilizando React.js.
 
 ## Información del Curso
@@ -7,7 +9,7 @@ Este proyecto es una maqueta y prototipo inicial de la interfaz de usuario de un
 - **Universidad:** Broward International University
 - **Maestría:** Ciencias de Ingeniería de Software Informático
 - **Curso:** PROGRAMMING THE INTERNET (CSE642)
-- **Tarea:** Tarea: Asignación No. 2 Diseño de la maqueta y prototipo inicial de la Interfaz de usuario de la Plataforma eCommerce. Interactiva y Responsiva usando HTML5, CSS3 y Bootstrap - ENTREGA AVANCE
+- **Tarea:** Tarea: Asignación No. 3 Desarrollo de un validador de formularios dinámico del lado del cliente, caso Registro de nuevo Usuario del Sistema
 - **Profesor:** PHD Cristian Gabriel Zambrano Vega
 - **Alumno:** Ing. Héctor Cristóbal Lazarte
 
