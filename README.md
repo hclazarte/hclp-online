@@ -1,6 +1,6 @@
 # Proyecto eCommerce Interactivo y Responsivo
 
-[Puede verse en](https://hclp.online/)
+[Puede verse aquí](https://hclp.online/)
 
 Este proyecto es una maqueta y prototipo inicial de la interfaz de usuario de una plataforma de eCommerce. Utiliza tecnologías modernas como HTML5, CSS3 y Bootstrap para garantizar una experiencia interactiva y responsiva. La implementación se ha realizado utilizando React.js.
 

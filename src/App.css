@@ -67,3 +67,19 @@ p {
   font-family: 'Indie Flower', cursive;
 }
 
+/* Alineación de etiquetas de formulario */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+}
+
+/* Estilo opcional para mejorar la alineación */
+.form-control {
+  margin-top: 0.25rem;
+}
+
