@@ -1,0 +1,23 @@
+.carousel-text {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  color: black;
+  text-align: center;
+}
+
+.carousel-indicators .active {
+  background-color: #888; 
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  max-width: 518px; /* Ajusta el tamaño máximo de la imagen si es necesario */
+  max-height: 548px; /* Ajusta el tamaño máximo de la imagen si es necesario */
+  object-fit: cover; /* Asegura que la imagen cubra el área del contenedor */
+}
+
+.carousel {
+  max-width: 518px; /* Ajusta el tamaño máximo del contenedor del carrusel si es necesario */
+  margin: 0 auto; /* Centra el carrusel horizontalmente */
+}
