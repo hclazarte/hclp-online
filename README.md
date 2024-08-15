@@ -27,7 +27,7 @@ Sigue los siguientes pasos para configurar y ejecutar el backend localmente:
 1. **Clonar el repositorio:**
 
    ```sh
-   git clone https://github.com/tu-usuario/hclp-be.git
+   git clone https://github.com/hclazarte/hclp-be.git
    cd hclp-be
 
 2. **Instalar Dependencias:**
