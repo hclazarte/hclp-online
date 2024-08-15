@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  relationship_type: MyString
+  product: one
+  related_product: one
+
+two:
+  relationship_type: MyString
+  product: two
+  related_product: two
