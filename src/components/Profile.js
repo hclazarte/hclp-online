@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Form, Button, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Profile() {
@@ -16,6 +16,53 @@ function Profile() {
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Para manejar el estado de autenticación
+  const [loading, setLoading] = useState(true); // Para manejar el estado de carga
+  const [error, setError] = useState(''); // Para manejar errores de fetch
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1")}`
+
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/me`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${token}`, // Incluir el token en el encabezado Authorization
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setFormData({
+            fullName: data.full_name || '',
+            email: data.email || '',
+            phone: data.phone || '',
+            address: data.address || '',
+            city: data.city || '',
+            state: data.state || '',
+            postalCode: data.postal_code || '',
+            newPassword: '',
+            confirmPassword: '',
+          });
+        } else if (response.status === 401) {
+          setIsLoggedIn(false); // Usuario no autenticado
+        } else {
+          setError('Hubo un error al cargar los datos del perfil.'); // Otro error
+        }
+      } catch (err) {
+        setError('Hubo un problema de conexión.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +88,7 @@ function Profile() {
     if (!formData.state || !nameRegex.test(formData.state)) {
       errors.state = 'El estado/provincia es obligatorio y debe contener solo letras y espacios.';
     }
-    if (formData.newPassword.length < 6 || formData.newPassword.length < 6) {
+    if (formData.newPassword.length < 6) {
       errors.newPassword = 'La nueva contraseña debe tener al menos 6 caracteres.';
     }
     if (formData.newPassword !== formData.confirmPassword) {
@@ -59,6 +106,18 @@ function Profile() {
       console.log('Formulario enviado', formData);
     }
   };
+
+  if (loading) {
+    return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se obtienen los datos
+  }
+
+  if (!isLoggedIn) {
+    return <Alert variant="warning">No estás autenticado. Por favor, inicia sesión para ver tu perfil.</Alert>;
+  }
+
+  if (error) {
+    return <Alert variant="danger">{error}</Alert>; // Mostrar un mensaje de error si ocurrió un problema
+  }
 
   return (
     <div className="container">
