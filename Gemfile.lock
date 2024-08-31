@@ -180,6 +180,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter
   bcrypt (~> 3.1.7)
   bootsnap
+  bundler (~> 2.5.17)
   debug
   doorkeeper
   puma (~> 5.0)
@@ -191,4 +192,4 @@ RUBY VERSION
    ruby 3.2.3p157
 
 BUNDLED WITH
-   2.5.17
+   2.5.18
