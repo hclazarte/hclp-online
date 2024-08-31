@@ -1,5 +1,6 @@
 {
   "homepage": "https://hclp.online",
+  "proxy": "http://localhost:3001",
   "name": "hclp-online",
   "version": "0.1.0",
   "private": true,
@@ -21,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && npm run copy-config",
-    "copy-config": "copy ./public/web.config ./build/web.config",
+    "copy-config": "cp ./public/web.config ./build/web.config",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+  "@babel/plugin-proposal-private-property-in-object": "^7.14.5"
   }
 }

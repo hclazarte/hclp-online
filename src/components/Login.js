@@ -50,7 +50,7 @@ function Login() {
             password: formData.password,
             client_id: config.clientId,
             client_secret: config.clientSecret,
-            scopes: 'wrie',
+            scopes: 'write',
           }),
         });
 

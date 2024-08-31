@@ -23,8 +23,8 @@ function Profile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/, "$1")}`
-
+        const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`
+        console.log(token)
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/me`, {
           method: 'GET',
           headers: {
