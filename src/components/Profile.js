@@ -25,7 +25,7 @@ function Profile() {
       try {
         const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`
         console.log(token)
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/me`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/me`, {
           method: 'GET',
           headers: {
             'Authorization': `${token}`, // Incluir el token en el encabezado Authorization
