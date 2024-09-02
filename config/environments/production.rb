@@ -1,6 +1,10 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Permite solicitudes desde los dominios especificados
+  config.hosts << "hclp.online"
+  config.hosts << "www.hclp.online"
+  
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
