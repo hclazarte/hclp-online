@@ -88,24 +88,75 @@ function Profile() {
     if (!formData.state || !nameRegex.test(formData.state)) {
       errors.state = 'El estado/provincia es obligatorio y debe contener solo letras y espacios.';
     }
-    if (formData.newPassword.length < 6) {
-      errors.newPassword = 'La nueva contraseña debe tener al menos 6 caracteres.';
+    if (formData.newPassword.length >  0)
+    {
+      if (formData.newPassword.length < 6) {
+        errors.newPassword = 'La nueva contraseña debe tener al menos 6 caracteres.';
+      }
+      if (formData.newPassword !== formData.confirmPassword) {
+        errors.confirmPassword = 'Las contraseñas no coinciden.';
+      }
     }
-    if (formData.newPassword !== formData.confirmPassword) {
-      errors.confirmPassword = 'Las contraseñas no coinciden.';
-    }
-
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      // Manejar el envío del formulario
-      console.log('Formulario enviado', formData);
+      try {
+        setLoading(true); // Activar el indicador de carga
+        const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/me`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            profile: {
+              full_name: formData.fullName,
+              email: formData.email, // Asumiendo que el email puede actualizarse
+              phone: formData.phone,
+              address: formData.address,
+              city: formData.city,
+              state: formData.state,
+              postal_code: formData.postalCode,
+              // Incluye las contraseñas solo si el usuario decide cambiarlas
+              ...(formData.newPassword && {
+                password: formData.newPassword,
+                password_confirmation: formData.confirmPassword,
+              }),
+            }
+          })
+        });
+  
+        if (response.ok) {
+          const updatedData = await response.json();
+          // alert('Perfil actualizado correctamente!');
+          // Actualizar los datos del formulario con la respuesta
+          setFormData({
+            fullName: updatedData.full_name || '',
+            email: updatedData.email || '',
+            phone: updatedData.phone || '',
+            address: updatedData.address || '',
+            city: updatedData.city || '',
+            state: updatedData.state || '',
+            postalCode: updatedData.postal_code || '',
+            newPassword: '',
+            confirmPassword: '',
+          });
+        } else {
+          const errorData = await response.json();
+          setError('Error al actualizar el perfil: ' + errorData.message);
+        }
+      } catch (err) {
+        setError('Hubo un problema de conexión al intentar actualizar el perfil.');
+      } finally {
+        setLoading(false); // Desactivar el indicador de carga
+      }
     }
-  };
+  };   
 
   if (loading) {
     return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se obtienen los datos

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Form } from 'react-bootstrap';
+import { Table, Button, Modal, Form, Alert } from 'react-bootstrap';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [formData, setFormData] = useState({
@@ -21,11 +22,66 @@ function ProductList() {
   }, []);
 
   const fetchProducts = (search = '') => {
-    fetch(`/api/products?search=${search}`)
-      .then(response => response.json())
+    const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products?search=${search}`, {
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else if (response.status === 401) {
+          setIsLoggedIn(false); // Actualizar el estado de autenticación a falso
+          throw new Error('No está autenticado');
+        } else {
+          throw new Error('Error al buscar productos');
+        }
+      })
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching products:', error));
   };
+  
+  const handleDelete = (productId) => {
+    const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(() => fetchProducts(searchTerm))
+      .catch(error => console.error('Error deleting product:', error));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validateProduct(formData);
+    if (Object.keys(validationErrors).length === 0) {
+      const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
+      const method = selectedProduct ? 'PUT' : 'POST';
+      const url = selectedProduct ? `${process.env.REACT_APP_SERVER_URL}/api/v1/products/${selectedProduct.id}` : `${process.env.REACT_APP_SERVER_URL}/api/v1/products`;
+  
+      fetch(url, {
+        method,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+        .then(response => response.json())
+        .then(() => {
+          handleClose();
+          fetchProducts(searchTerm);
+        })
+        .catch(error => console.error('Error submitting product:', error));
+    } else {
+      setErrors(validationErrors);
+    }
+  };  
 
   const handleShow = (product = null) => {
     setSelectedProduct(product);
@@ -47,37 +103,6 @@ function ProductList() {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validateProduct(formData);
-    if (Object.keys(validationErrors).length === 0) {
-      const method = selectedProduct ? 'PUT' : 'POST';
-      const url = selectedProduct ? `/api/products/${selectedProduct.id}` : '/api/products';
-
-      fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-        .then(response => response.json())
-        .then(() => {
-          handleClose();
-          fetchProducts(searchTerm);
-        })
-        .catch(error => console.error('Error submitting product:', error));
-    } else {
-      setErrors(validationErrors);
-    }
-  };
-
-  const handleDelete = (productId) => {
-    fetch(`/api/products/${productId}`, {
-      method: 'DELETE'
-    })
-      .then(() => fetchProducts(searchTerm))
-      .catch(error => console.error('Error deleting product:', error));
-  };
-
   const validateProduct = (data) => {
     const errors = {};
     if (!data.name) errors.name = 'El nombre es obligatorio.';
@@ -89,6 +114,14 @@ function ProductList() {
   const handleSearch = () => {
     fetchProducts(searchTerm);
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="container">
+        <Alert variant="warning">No estás autenticado. Por favor, inicia sesión para ver los productos.</Alert>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
