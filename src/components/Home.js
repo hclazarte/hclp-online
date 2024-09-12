@@ -8,6 +8,10 @@ function Home() {
     <div className="container centered-content">
       <Carousel>
         <Carousel.Item>
+          <div className="offer-label">
+            <span>En oferta</span> 
+            <span>$139.99</span>
+          </div>
           <img
             className="d-block w-100"
             src="/images/image1.png" 
@@ -15,10 +19,14 @@ function Home() {
           />
           <div className="carousel-text">
             <h3>Purificador de Aire</h3>
-            <p>Potente filtración: el filtro PuroAir HEPA captura todo lo que no quieres respirar. Filtra el polvo, el polen, el humo, los compuestos orgánicos volátiles y todo lo que no quieres respirar. Se muestra que captura hasta el 99% de partículas que se encuentran...</p>
+            <p>Potente filtración: el filtro PuroAir HEPA captura todo lo que no quieres respirar. Filtra el polvo, el polen, el humo, los compuestos orgánicos volátiles y todo lo que no quieres respirar..</p>
           </div>
         </Carousel.Item>
         <Carousel.Item>
+          <div className="offer-label">
+            <span>En oferta</span> 
+            <span>$120.50</span>
+          </div>
           <img
             className="d-block w-100"
             src="/images/image2.png"
@@ -26,10 +34,14 @@ function Home() {
           />
           <div className="carousel-text">
             <h3>Licuadora de Alta Potencia</h3>
-            <p>Mezclador de encimera de cocina: la licuadora de grado profesional utiliza botones de 1 toque para controlar los 6 ciclos preprogramados, la opción de pulso y el control manual de 10 velocidades...</p>
+            <p>Mezclador de encimera de cocina: la licuadora de grado profesional utiliza botones de 1 toque para controlar los 6 ciclos preprogramados, la opción de pulso y el control manual...</p>
           </div>
         </Carousel.Item>
         <Carousel.Item>
+          <div className="offer-label">
+            <span>En oferta</span> 
+            <span>$45.99</span>
+          </div>
           <img
             className="d-block w-100"
             src="/images/image3.png"
@@ -37,10 +49,14 @@ function Home() {
           />
           <div className="carousel-text">
             <h3>Set de Cuchillos de Cocina</h3>
-            <p>Juego de cuchillos de cocina de Damasco de 18 piezas, 8 cuchillos de carne, mango ergonómico de ABS antideslizante triple remache para tenedor de carne, afilador de cuchillos y tijeras, bloque de...</p>
+            <p>Juego de cuchillos de cocina de Damasco de 18 piezas, 8 cuchillos de carne, mango ergonómico de ABS antideslizante triple remache para tenedor de carne, afilador de cuchillos...</p>
           </div>
         </Carousel.Item>
         <Carousel.Item>
+          <div className="offer-label">
+            <span>En oferta</span> 
+            <span>$229.99</span>
+          </div>
           <img
             className="d-block w-100"
             src="/images/image4.png"
@@ -52,6 +68,10 @@ function Home() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
+          <div className="offer-label">
+            <span>En oferta</span> 
+            <span>$19.99</span>
+          </div>
           <img
             className="d-block w-100"
             src="/images/image5.png"

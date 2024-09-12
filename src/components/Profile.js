@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons'; // Ícono para guardar cambios
 
 function Profile() {
   const [formData, setFormData] = useState({
@@ -302,7 +304,8 @@ function Profile() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Guardar Cambios
+          <FontAwesomeIcon icon={faSave} /> {/* Ícono de guardar cambios */}
+          {' '}Guardar Cambios
         </Button>
       </Form>
     </div>
