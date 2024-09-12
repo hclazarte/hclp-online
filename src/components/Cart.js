@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table, Modal, ListGroup, Form, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCreditCard, faPlusCircle, faEye } from '@fortawesome/free-solid-svg-icons'; // Íconos para el carrito
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -53,7 +55,7 @@ function Cart() {
   // Función para obtener los pedidos del usuario
   const fetchOrders = () => {
     const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/orders`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/my_orders`, {
       headers: {
         'Authorization': token,
         'Content-Type': 'application/json',
@@ -136,21 +138,23 @@ function Cart() {
     e.preventDefault();
 
     const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/orders`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/my_orders`, {
       method: 'POST',
       headers: {
         'Authorization': token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        profile_id: profile.id,
-        status: 'pending',
-        total: calculateTotal(),
-        order_items: cart.map((item) => ({
-          product_id: item.id,
-          quantity: item.qty,
-          price: item.price,
-        })),
+        order: {
+          profile_id: profile.id,
+          status: 'pending',
+          total: calculateTotal(),
+          order_items_attributes: cart.map((item) => ({
+            product_id: item.id,
+            quantity: item.qty,
+            price: item.price,
+          }))
+        },
       }),
     })
       .then((response) => response.json())
@@ -222,10 +226,12 @@ function Cart() {
       {/* Mostrar botones incluso si el carrito está vacío */}
       <div className="mt-3">
         <Button variant="primary" onClick={() => setShowCheckoutModal(true)} disabled={cart.length === 0}>
-          Realizar Pago
+          <FontAwesomeIcon icon={faCreditCard} /> {/* Ícono de realizar pago */}
+              {' '}Realizar Pago
         </Button>
         <Button variant="primary" className="ms-2" onClick={() => setShowProductModal(true)}>
-          Añadir Productos
+          <FontAwesomeIcon icon={faPlusCircle} /> {/* Ícono de añadir productos */}
+              {' '}Añadir Productos
         </Button>
       </div>
 
@@ -255,7 +261,7 @@ function Cart() {
                 <td>{new Date(order.date).toLocaleDateString()}</td>
                 <td>
                   <Button variant="info" onClick={() => handleViewOrderDetails(order)}>
-                    []
+                    <FontAwesomeIcon icon={faEye} /> {/* Ícono de ver detalles */}
                   </Button>
                 </td>
               </tr>

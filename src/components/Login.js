@@ -45,6 +45,7 @@ function Login() {
           setUserName(data.full_name);
         })
         .catch((error) => {
+          Cookies.remove('access_token');
           console.error('Error al obtener el perfil del usuario:', error);
         });
     }

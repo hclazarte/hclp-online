@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt, faSearch, faPlusCircle } from '@fortawesome/free-solid-svg-icons'; // Íconos adicionales
+
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -12,7 +15,7 @@ function ProductList() {
     price: '',
     stock: '',
     category: '',
-    imageUrl: ''
+    image_url: ''
   });
   const [errors, setErrors] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,7 +26,7 @@ function ProductList() {
 
   const fetchProducts = (search = '') => {
     const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products?search=${search}`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products?name=${search}`, {
       headers: {
         'Authorization': token,
         'Content-Type': 'application/json'
@@ -44,21 +47,28 @@ function ProductList() {
   };
   
   const handleDelete = (productId) => {
-    const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products/${productId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(() => fetchProducts(searchTerm))
-      .catch(error => console.error('Error deleting product:', error));
+    const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
+    
+    if (confirmDelete) {
+      const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
+      fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/products/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(() => fetchProducts(searchTerm))
+        .catch(error => console.error('Error deleting product:', error));
+    }
   };
   
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validateProduct(formData);
+
+    console.log(JSON.stringify(formData))
+
     if (Object.keys(validationErrors).length === 0) {
       const token = `Bearer ${document.cookie.replace(/(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/, "$1")}`;
       const method = selectedProduct ? 'PUT' : 'POST';
@@ -91,7 +101,7 @@ function ProductList() {
       price: '',
       stock: '',
       category: '',
-      imageUrl: ''
+      image_url: ''
     });
     setShowModal(true);
   };
@@ -100,6 +110,7 @@ function ProductList() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
@@ -135,10 +146,10 @@ function ProductList() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Button variant="primary" onClick={handleSearch} className="me-2">
-          Consultar
+          <FontAwesomeIcon icon={faSearch} /> {/* Ícono de consultar */}
         </Button>
         <Button variant="success" onClick={() => handleShow()}>
-          Agregar
+          <FontAwesomeIcon icon={faPlusCircle} /> {/* Ícono de agregar */}
         </Button>
       </div>
       <Table striped bordered hover>
@@ -156,14 +167,14 @@ function ProductList() {
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
-              <td>{product.price}</td>
+              <td className="text-right">{Number(product.price).toFixed(2)}</td>
               <td>{product.stock}</td>
               <td>
                 <Button variant="info" onClick={() => handleShow(product)}>
-                  Editar
+                  <FontAwesomeIcon icon={faEdit} /> {/* Ícono de editar */}
                 </Button>
                 <Button variant="danger" onClick={() => handleDelete(product.id)} className="ms-2">
-                  Eliminar
+                  <FontAwesomeIcon icon={faTrashAlt} /> {/* Ícono de eliminar */}
                 </Button>
               </td>
             </tr>
@@ -210,6 +221,7 @@ function ProductList() {
                 value={formData.price}
                 onChange={handleChange}
                 isInvalid={!!errors.price}
+                className="text-right" 
               />
               <Form.Control.Feedback type="invalid">
                 {errors.price}
@@ -244,8 +256,8 @@ function ProductList() {
               <Form.Label>URL de Imagen</Form.Label>
               <Form.Control
                 type="text"
-                name="imageUrl"
-                value={formData.imageUrl}
+                name="image_url"
+                value={formData.image_url}
                 onChange={handleChange}
               />
             </Form.Group>
