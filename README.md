@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# HCLP-ONLINE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción del Proyecto
+Este repositorio almacena el código y documentación del desarrollo del **Sistema de Gestión de Citas de Especialidades Médicas centrado en HCI**.
 
-## Available Scripts
+El propósito de este proyecto es implementar un prototipo de alta fidelidad que facilite la gestión de citas médicas a través de principios de **usabilidad, accesibilidad y experiencia de usuario**, asegurando una integración efectiva entre humanos y computadoras.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Requerimientos del Proyecto
+- **Repositorio en GitHub**: Se empleará este repositorio para almacenar código, documentar las fases de desarrollo y facilitar la colaboración.
+- **Documentación del Proceso**: Se registrarán todas las fases del desarrollo del prototipo para asegurar su continuidad y mejora.
+- **Evaluación de Usabilidad, Accesibilidad y Experiencia de Usuario**: Se elaborará un informe detallado basado en las normas APA.
+- **Entregables**:
+  - Informe de evaluación con una extensión de **15-20 carillas**.
+  - Exposición de **20 minutos** utilizando presentación en PowerPoint.
+- **Duración del Proyecto**: **9 semanas**.
+- **Interacción Asincrónica**: Se estima una dedicación de **5 horas** a la lectura del material y participación en discusiones a lo largo del curso.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Universidad y Curso
+**Broward International University**  
+**Maestría en Ciencias de Ingeniería de Software Informático**  
+**Curso:** HUMAN-COMPUTER INTEGRATION AND DIGITAL CITIZENSHIP (**CSE661**)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Caso de Estudio
+**Sistema de Gestión de Citas de Especialidades Médicas centrado en HCI**
 
-### `npm run build`
+Este proyecto busca mejorar la interacción entre los pacientes y los servicios médicos, optimizando la usabilidad del sistema de citas y mejorando la accesibilidad a través de principios de **Human-Computer Integration (HCI)**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Equipo de Trabajo
+- **Profesor**: PHD Walter Marcelo Fuertes  
+- **Alumno**: Ing. Héctor Cristóbal Lazarte  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Instrucciones para Desarrolladores
+### 1. Clonar el Repositorio
+```sh
+ git clone https://github.com/hclazarte/hclp-online.git
+ cd hclp-online
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2. Instalación de Dependencias
+Asegúrate de tener **Node.js 18+** instalado y ejecuta:
+```sh
+ npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Ejecutar el Proyecto
+```sh
+ npm start
+```
+Esto iniciará el servidor de desarrollo en `http://localhost:3000/`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Licencia
+Este proyecto se desarrolla con fines académicos y está sujeto a las normativas de Broward International University.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
