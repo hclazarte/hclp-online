@@ -5,7 +5,7 @@ import './css/output.css'
 
 function App() {
   return (
-    <div className="h-screen bg-gray-100">
+    <div className="h-screen bg-inf1">
       <MenuComponent />
       <HerramientasComponent />
     </div>
