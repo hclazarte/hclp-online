@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AyudaComponent from "./AyudaComponent";
 
-const MenuComponent = () => {
+const MenuComponent = ({ setAutenticado }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAyuda, setIsAyuda] = useState(false);
+  const navigate = useNavigate();
+  const cerrarSesion = () => {
+    setAutenticado(false); // Desautentica al usuario
+    navigate("/"); // Redirige a la pantalla de inicio
+  };
 
   return (
     <nav className="bg-inf2 border-b-2 border-inf4 p-4 relative">
@@ -35,15 +41,20 @@ const MenuComponent = () => {
 
       {/* Menú desplegable */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1 w-40 bg-inf2 border border-inf4 rounded-lg shadow-md">
+        <div className="absolute left-0 top-full mt-1 w-40 bg-inf2 border border-inf4 rounded-lg shadow-md z-10">
           <ul>
-            <li className="border-b border-inf4 p-3 text-inf6 hover:bg-blue-200 cursor-pointer">
+            <li className="border-b border-inf4 p-3 text-inf6 hover:bg-inf2 cursor-pointer">
               Afiliados
             </li>
-            <li className="border-b border-inf4 p-3 text-inf6 hover:bg-blue-200 cursor-pointer">
+            <li className="border-b border-inf4 p-3 text-inf6 hover:bg-red-100 cursor-pointer">
               Médicos
             </li>
-            <li className="p-3 text-inf6 hover:bg-blue-200 cursor-pointer">Salir</li>
+            <li className="border-b border-inf4 p-3 text-inf6 hover:bg-red-100 cursor-pointer">
+              Citas
+            </li>
+            <li 
+              className="p-3 text-inf6 hover:bg-inf2 cursor-pointer"
+              onClick={cerrarSesion}>Salir</li>
           </ul>
         </div>
       )}

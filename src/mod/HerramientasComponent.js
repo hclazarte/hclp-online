@@ -19,7 +19,7 @@ const HerramientasComponent = () => {
   };  
   const esHabilitado = (boton) => {
     const botonesPorModo = {
-      consulta: ["nuevo", "consultar"],
+      consulta: ["consultar"],
       navegacion: ["nuevo", "editar", "borrar", "primero", "anterior", "siguiente", "ultimo", "limpiar"],
       edicion: ["grabar", "cancelar"],
     };
@@ -27,13 +27,9 @@ const HerramientasComponent = () => {
   };
   
   return (
-    <div className="bg-inf2 border border-inf4 rounded-lg shadow-md p-4 flex flex-col gap-4"> 
-      {/* Encabezado con el modo actual */}
-      {/* <h2 className="text-inf6 font-bold">Modo {modo.charAt(0).toUpperCase() + modo.slice(1)}</h2> */}
-      
-      {/* Contenedor de botones */}
-      <div className="flex flex-wrap gap-1 p-1 bg-inf1 rounded-md">
-        <div className="flex gap-1">
+    <div className="bg-inf2 border border-inf4 rounded-lg shadow-md p-2 flex gap-4"> 
+      <div className="flex flex-wrap justify-center gap-1 p-1 bg-inf1 rounded-md">
+        <div className="flex flex-wrap gap-1 justify-between w-auto">
           <button onClick={() => manejarClick("nuevo")} className={`p-1 rounded ${esHabilitado("nuevo") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}>
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="36" height="36" rx="5" fill="#527dd6" />
@@ -89,7 +85,7 @@ const HerramientasComponent = () => {
             </svg>
           </button>
         </div>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-1 justify-between w-auto">
           <button className={`p-1 rounded ${esHabilitado("primero") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}>
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="36" height="36" rx="5" fill="#527dd6" />
