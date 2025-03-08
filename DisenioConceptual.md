@@ -69,7 +69,7 @@ Los casos de uso principales incluyen:
 
 Estos casos de uso serán representados en un diagrama UML documentado en el repositorio.
 
-![Diagrama de Casos de Uso](./img/CasosDeUso.png)
+![Diagrama de Casos de Uso](./img/CasosUso.png)
 
 ### 4. Diseño de la Arquitectura de Software
 La arquitectura del sistema sigue un enfoque **cliente-servidor** con una división clara de responsabilidades:
