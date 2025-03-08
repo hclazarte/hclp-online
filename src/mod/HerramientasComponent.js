@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-const HerramientasComponent = () => {
-  const [modo, setModo] = useState("consulta"); // Modos: consulta, navegacion, edicion
+const HerramientasComponent = ({ modo, setModo }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(
     "¿Estás seguro que deseas borrar este registro?",
@@ -26,7 +25,7 @@ const HerramientasComponent = () => {
       setModo("navegacion"); // Regla 11
     }
   };
-  const esHabilitado = (boton) => {
+  const esHabilitado = (modoActual, boton) => {
     const botonesPorModo = {
       consulta: ["consultar"],
       navegacion: [
@@ -41,16 +40,17 @@ const HerramientasComponent = () => {
       ],
       edicion: ["grabar", "cancelar"],
     };
-    return botonesPorModo[modo].includes(boton);
+
+    return botonesPorModo[modoActual]?.includes(boton);
   };
 
   return (
-    <div className="bg-inf2 border border-inf4 rounded-lg shadow-md p-2 flex gap-4">
+    <div className="bg-inf2 border border-inf4 rounded-lg shadow-md p-2 flex gap-4 mt-1">
       <div className="flex flex-wrap justify-center gap-1 p-1 bg-inf1 rounded-md">
         <div className="flex flex-wrap gap-1 justify-between w-auto">
           <button
             onClick={() => manejarClick("nuevo")}
-            className={`p-1 rounded ${esHabilitado("nuevo") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "nuevo") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -78,7 +78,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("editar")}
-            className={`p-1 rounded ${esHabilitado("editar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "editar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -96,7 +96,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("borrar")}
-            className={`p-1 rounded ${esHabilitado("borrar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "borrar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -126,7 +126,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("grabar")}
-            className={`p-1 rounded ${esHabilitado("grabar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "grabar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -144,7 +144,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("cancelar")}
-            className={`p-1 rounded ${esHabilitado("cancelar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "cancelar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -164,7 +164,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("limpiar")}
-            className={`p-1 rounded ${esHabilitado("limpiar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "limpiar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -189,7 +189,7 @@ const HerramientasComponent = () => {
           </button>
           <button
             onClick={() => manejarClick("consultar")}
-            className={`p-1 rounded ${esHabilitado("consultar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "consultar") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -216,7 +216,7 @@ const HerramientasComponent = () => {
         </div>
         <div className="flex flex-wrap gap-1 justify-between w-auto">
           <button
-            className={`p-1 rounded ${esHabilitado("primero") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "primero") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -235,7 +235,7 @@ const HerramientasComponent = () => {
             </svg>
           </button>
           <button
-            className={`p-1 rounded ${esHabilitado("anterior") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "anterior") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -260,7 +260,7 @@ const HerramientasComponent = () => {
             <span className="text-center text-inf6">10/100</span>
           </div>
           <button
-            className={`p-1 rounded ${esHabilitado("siguiente") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "siguiente") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"
@@ -279,7 +279,7 @@ const HerramientasComponent = () => {
             </svg>
           </button>
           <button
-            className={`p-1 rounded ${esHabilitado("ultimo") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
+            className={`p-1 rounded ${esHabilitado(modo, "ultimo") ? "bg-inf4 text-white" : "bg-inf3 opacity-50 cursor-not-allowed"}`}
           >
             <svg
               width="36"

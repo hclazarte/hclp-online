@@ -24,7 +24,7 @@ const MenuComponent = ({ setAutenticado }) => {
   };
 
   return (
-    <nav className="bg-inf2 border-b-2 border-inf4 p-4 relative">
+    <nav className="bg-inf3 p-2 relative border border-inf4 rounded-lg rounded-lg">
       <div className="flex items-center justify-between">
         {/* Botón de menú con SVG */}
         <button
@@ -103,7 +103,7 @@ const MenuComponent = ({ setAutenticado }) => {
           </ul>
         </div>
       )}
-      {isAyuda && <AyudaComponent />}
+      {isAyuda && <AyudaComponent setIsAyuda={setIsAyuda} />}
     </nav>
   );
 };
