@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import MenuComponent from "./MenuComponent";
+import { Outlet } from 'react-router-dom'
+import MenuComponent from './MenuComponent'
 
 const Principal = ({ setAutenticado }) => {
   return (
@@ -7,7 +7,7 @@ const Principal = ({ setAutenticado }) => {
       <MenuComponent setAutenticado={setAutenticado} />
       <Outlet /> {/* Aquí se renderizarán Afiliados, Médicos y Citas */}
     </div>
-  );
-};
+  )
+}
 
-export default Principal;
+export default Principal
