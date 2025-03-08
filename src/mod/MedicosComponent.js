@@ -3,7 +3,7 @@ import { estilosModo } from '../config/estilosModo'
 const MedicosComponent = ({ modo }) => {
   return (
     <div
-      className={`p-6 rounded-lg shadow-md w-full max-w-lg mt-1 border bg-inf2`}
+      className={`p-6 rounded-lg shadow-md w-full max-w-lg mt-1 border bg-inf2 overflow-auto h-screen`}
     >
       <form className='space-y-4'>
         <input

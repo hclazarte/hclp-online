@@ -1,6 +1,6 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Escanea todos los archivos en src
-  safelist: [{ pattern: /.*/ }], // Incluir TODAS las clases en modo desarrollo
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Escanea todos los archivos en srcx
+  //safelist: [{ pattern: /.*/ }], // Incluir TODAS las clases en modo desarrollo
   theme: {
     extend: {
       colors: {

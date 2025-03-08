@@ -16,29 +16,31 @@ const App = () => {
   const [autenticado, setAutenticado] = useState(false)
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            autenticado ? (
-              <Navigate to='/app/afiliados' />
-            ) : (
-              <Ingreso setAutenticado={setAutenticado} />
-            )
-          }
-        />
-        <Route
-          path='/app'
-          element={<Principal setAutenticado={setAutenticado} />}
-        >
-          <Route path='afiliados' element={<Afiliados />} />
-          <Route path='medicos' element={<Medicos />} />
-          <Route path='citas' element={<Citas />} />
-          <Route path='*' element={<Navigate to='afiliados' />} />
-        </Route>
-      </Routes>
-    </Router>
+    <div className='relative min-h-screen bg-inf1'>
+      <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              autenticado ? (
+                <Navigate to='/app/afiliados' />
+              ) : (
+                <Ingreso setAutenticado={setAutenticado} />
+              )
+            }
+          />
+          <Route
+            path='/app'
+            element={<Principal setAutenticado={setAutenticado} />}
+          >
+            <Route path='afiliados' element={<Afiliados />} />
+            <Route path='medicos' element={<Medicos />} />
+            <Route path='citas' element={<Citas />} />
+            <Route path='*' element={<Navigate to='afiliados' />} />
+          </Route>
+        </Routes>
+      </Router>
+    </div>
   )
 }
 

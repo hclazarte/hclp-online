@@ -2,7 +2,7 @@ import { estilosModo } from '../config/estilosModo'
 
 const AfiliadosComponent = ({ modo }) => {
   return (
-    <div className='flex flex-col items-center min-h-screen'>
+    <div className='flex flex-col items-center min-h-screen overflow-auto h-screen'>
       <div
         className={`p-6 rounded-lg shadow-md w-full max-w-lg mt-1 border bg-inf2`}
       >
