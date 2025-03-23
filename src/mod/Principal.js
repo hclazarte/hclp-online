@@ -5,7 +5,7 @@ const Principal = ({ setAutenticado }) => {
   return (
     <div>
       <MenuComponent setAutenticado={setAutenticado} />
-      <Outlet /> {/* Aquí se renderizarán Afiliados, Médicos y Citas */}
+      <Outlet /> {/* Aquí se renderizarán Pacientes, Médicos y Citas */}
     </div>
   )
 }

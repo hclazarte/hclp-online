@@ -5,15 +5,15 @@ import AyudaComponent from './AyudaComponent'
 const MenuComponent = ({ setAutenticado }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isAyuda, setIsAyuda] = useState(false)
-  const [titulo, setTitulo] = useState('Afiliados')
+  const [titulo, setTitulo] = useState('Pacientes')
   const navigate = useNavigate()
   const cerrarSesion = () => {
     setAutenticado(false) // Desautentica al usuario
     navigate('/') // Redirige a la pantalla de inicio
   }
-  const irAfiliados = () => {
-    navigate('/app/afiliados')
-    setTitulo('Afiliados')
+  const irPacientes = () => {
+    navigate('/app/Pacientes')
+    setTitulo('Pacientes')
     setIsOpen(!isOpen)
   }
   const irMedicos = () => {
@@ -82,9 +82,9 @@ const MenuComponent = ({ setAutenticado }) => {
           <ul>
             <li
               className='border-b border-inf4 p-3 text-inf6 hover:bg-inf2 cursor-pointer'
-              onClick={irAfiliados}
+              onClick={irPacientes}
             >
-              Afiliados
+              Pacientes
             </li>
             <li
               className='border-b border-inf4 p-3 text-inf6 hover:bg-red-100 cursor-pointer'

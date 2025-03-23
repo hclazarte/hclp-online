@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import HerramientasComponent from './HerramientasComponent'
+import HerramientasCom from './common/HerramientasCom'
 import MedicosComponent from './MedicosComponent.js'
 
 const Medicos = () => {
@@ -7,8 +7,8 @@ const Medicos = () => {
 
   return (
     <div>
-      {/* HerramientasComponent puede modificar el modo */}
-      <HerramientasComponent modo={modo} setModo={setModo} />
+      {/* HerramientasCom puede modificar el modo */}
+      <HerramientasCom modo={modo} setModo={setModo} />
       {/* MedicosComponent recibe el modo y ajusta su UI */}
       <MedicosComponent modo={modo} />
     </div>

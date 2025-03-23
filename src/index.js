@@ -26,7 +26,7 @@ const Index = () => {
     loadConfig()
   }, [])
   if (!configLoaded) {
-    return <Spinner/>
+    return <Spinner />
   }
   return (
     <StrictMode>

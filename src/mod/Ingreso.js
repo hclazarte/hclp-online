@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import Spinner from './common/SpinnerCom'
 
 const Ingreso = ({ setAutenticado }) => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -13,20 +13,20 @@ const Ingreso = ({ setAutenticado }) => {
     setErrorMsg('')
 
     fetch(`${window.infoConfig.apiUrl}/login`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     })
       .then((response) => {
         setShowSpinner(false)
         if (!response.ok) {
-          return response.json().then(err => {
+          return response.json().then((err) => {
             throw new Error(err.error || 'Credenciales incorrectas')
           })
         }
-        return response.json();
+        return response.json()
       })
       .then((data) => {
         setShowSpinner(false)
@@ -34,8 +34,9 @@ const Ingreso = ({ setAutenticado }) => {
         localStorage.setItem('access_token', data.access_token)
       })
       .catch((error) => {
+        setShowSpinner(false)
         setErrorMsg(error.message)
-      });    
+      })
   }
   return (
     <div className='flex items-center justify-center min-h-screen bg-inf2'>
@@ -75,12 +76,10 @@ const Ingreso = ({ setAutenticado }) => {
           Olvidó su contraseña
         </p>
         {errorMsg && (
-          <p className='text-red-600 text-center mt-2'>
-            {errorMsg}
-          </p>
+          <p className='text-red-600 text-center mt-2'>{errorMsg}</p>
         )}
       </div>
-      {showSpinner && (<Spinner/>)}
+      {showSpinner && <Spinner />}
     </div>
   )
 }

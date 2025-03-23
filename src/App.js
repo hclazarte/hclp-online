@@ -7,7 +7,7 @@ import {
 import { useState } from 'react'
 import Ingreso from './mod/Ingreso'
 import Principal from './mod/Principal' // Nuevo Layout
-import Afiliados from './mod/Afiliados'
+import Pacientes from './mod/Pacientes'
 import Medicos from './mod/Medicos'
 import Citas from './mod/Citas'
 import './css/output.css'
@@ -23,7 +23,7 @@ const App = () => {
             path='/'
             element={
               autenticado ? (
-                <Navigate to='/app/afiliados' />
+                <Navigate to='/app/Pacientes' />
               ) : (
                 <Ingreso setAutenticado={setAutenticado} />
               )
@@ -33,10 +33,10 @@ const App = () => {
             path='/app'
             element={<Principal setAutenticado={setAutenticado} />}
           >
-            <Route path='afiliados' element={<Afiliados />} />
+            <Route path='pacientes' element={<Pacientes />} />
             <Route path='medicos' element={<Medicos />} />
             <Route path='citas' element={<Citas />} />
-            <Route path='*' element={<Navigate to='afiliados' />} />
+            <Route path='*' element={<Navigate to='pacientes' />} />
           </Route>
         </Routes>
       </Router>
