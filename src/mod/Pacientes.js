@@ -94,8 +94,10 @@ const Pacientes = () => {
     setShowSpinner(true);
     
     let response;
+    let isNew = false
     
     if (pacienteEditOrNew.id === undefined) {
+      let isNew = true
       response = await fetch(`${window.infoConfig.apiUrl}/pacientes`, {
         method: 'POST',
         headers: {
@@ -126,6 +128,7 @@ const Pacientes = () => {
     const data = await response.json();
     let includeID = data.id
     setErrorMsg('');
+    if (isNew) pageRef.current = 1
     filtrar(includeID); 
     setModo('navegacion');
     return true
