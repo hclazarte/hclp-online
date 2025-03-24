@@ -1,4 +1,4 @@
-import { useState, useRef, useSyncExternalStore } from 'react'
+import { useState, useRef } from 'react'
 import HerramientasCom from './common/HerramientasCom.js'
 import PacientesComponent from './PacientesComponent.js'
 import Spinner from './common/SpinnerCom.js'
@@ -9,8 +9,9 @@ const Pacientes = () => {
   const [paciente, setPaciente] = useState({})
   const [result, setResult] = useState({})
   const [errorMsg, setErrorMsg] = useState('')
-  const PacientesRef = useRef()
-  const pacienteDataRef = useRef({})
+  const pacientesRef = useRef()
+  const pacienteQbeRef = useRef({})
+  const pacienteUndoRef = useRef({})
   const pageRef = useRef(0)
   const pageMaxRef = useRef(0)
 
@@ -19,7 +20,7 @@ const Pacientes = () => {
     setResult({})
   }
   const onQuery = async () => {
-    pacienteDataRef.current = PacientesRef.current.getPaciente()
+    pacienteQbeRef.current = pacientesRef.current.getPaciente()
     pageRef.current = 1
     await filtrar()
   }
@@ -42,15 +43,103 @@ const Pacientes = () => {
     }
   }
   const onNew = async () => {
+    pacienteUndoRef.current = pacientesRef.current.getPaciente()
     setPaciente({})
   }
-  const filtrar = async () => {
+  const onEdit = async () => {
+    pacienteUndoRef.current = pacientesRef.current.getPaciente()
+  }
+  const onDelete = async () => {
+    const token = localStorage.getItem('access_token');
+    const pacienteDelete = pacientesRef.current.getPaciente();
+    
+    setShowSpinner(true);
+    
+    const response = await fetch(
+      `${window.infoConfig.apiUrl}/pacientes/${pacienteDelete.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    setShowSpinner(false);
+    
+    if (!response.ok) {
+      const error = await response.text();
+      setErrorMsg(`No se pudo eliminar el registro ${errorMsg}`);
+      return false;
+    }
+    
+    setErrorMsg('');
+    if (pageRef.current === pageMaxRef.current) pageRef.current -= 1
+    if (pageRef.current > 0 ) {
+      await filtrar()
+    }else{
+      setPaciente({})
+      setResult({})
+      setModo('consulta')
+    }
+    return true
+  }
+  const onCancel = async () => {
+    setPaciente(pacienteUndoRef.current)
+  }
+  const onSave = async () => {
+    const token = localStorage.getItem('access_token');
+    const pacienteEditOrNew = pacientesRef.current.getPaciente();
+    
+    setShowSpinner(true);
+    
+    let response;
+    
+    if (pacienteEditOrNew.id === undefined) {
+      response = await fetch(`${window.infoConfig.apiUrl}/pacientes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ paciente: pacienteEditOrNew })
+      });
+    } else {
+      response = await fetch(`${window.infoConfig.apiUrl}/pacientes/${pacienteEditOrNew.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ paciente: pacienteEditOrNew })
+      });
+    }
+    
+    setShowSpinner(false);
+    
+    if (!response.ok) {
+      const error = await response.text();
+      setErrorMsg(`No se pudo guardar el registro ${errorMsg}`);
+      return false;
+    }
+    
+    const data = await response.json();
+    let includeID = data.id
+    setErrorMsg('');
+    filtrar(includeID); 
+    setModo('navegacion');
+    return true
+  }
+  const validate = () => {
+    return pacientesRef.current.validatePaciente()
+  }
+  const filtrar = async (includeID = '') => {
     const token = localStorage.getItem('access_token')
-    const pacienteData = pacienteDataRef.current
+    const pacienteData = pacienteQbeRef.current
 
     setShowSpinner(true)
     const response = await fetch(
-      `${window.infoConfig.apiUrl}/pacientes/filtrar?page=${pageRef.current}&per_page=1`,
+      `${window.infoConfig.apiUrl}/pacientes/filtrar?page=${pageRef.current}&per_page=1&include=${includeID}`,
       {
         method: 'PATCH',
         headers: {
@@ -65,8 +154,8 @@ const Pacientes = () => {
     setShowSpinner(false)
     if (!response.ok) {
       const error = await response.text()
-      console.error('Error en el PATCH:', error)
-      return
+      setErrorMsg(`No se pudo leer el registro ${errorMsg}`);
+      return false
     }
 
     const data = await response.json()
@@ -94,10 +183,15 @@ const Pacientes = () => {
         onClear={onClear}
         onNavigate={onNavigate}
         onNew={onNew}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onCancel={onCancel}
+        onSave={onSave}
+        validate={validate}
       />
       {/* PacientesComponent recibe el modo y ajusta su UI */}
       <PacientesComponent
-        ref={PacientesRef}
+        ref={pacientesRef}
         modo={modo}
         paciente={paciente}
         setPaciente={setPaciente}

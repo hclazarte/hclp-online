@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const HerramientasCom = ({
   modo,
@@ -7,33 +7,56 @@ const HerramientasCom = ({
   setErrorMsg,
   setModo,
   onQuery,
-  onLimpiar,
+  onClear,
   onNavigate,
-  onNew
+  onNew,
+  onEdit,
+  onDelete,
+  onCancel,
+  onSave,
+  validate
 }) => {
   const [showDialog, setShowDialog] = useState(false)
-  const [dialogMessage, setDialogMessage] = useState(
-    '¿Estás seguro que deseas borrar este registro?'
-  )
-  const onConfirm = () => {
-    setShowDialog(!showDialog)
+  const dialogRef = useRef({ msg: '', origin: '' });
+  
+  const onConfirm = (origin) => {
+    if (origin === 'borrar') {
+      onDelete();
+    }
   }
   const handleCloseDialog = () => {
     setShowDialog(!showDialog)
   }
-  const handleClick = (boton) => {
+  const handleClick = async (boton) => {
+    setErrorMsg('')
     if (boton === 'nuevo') {
       onNew()
       setModo('edicion')
     } else if (boton === 'editar') {
+      onEdit()
       setModo('edicion')
     } else if (boton === 'borrar') {
-      setShowDialog(!showDialog)
-      setModo('navegacion') // Regla 7
-    } else if (boton === 'grabar' || boton === 'cancelar') {
-      setModo('navegacion') // Reglas 8 y 9
+      dialogRef.current = {
+        msg: '¿Estás seguro que deseas borrar este registro?',
+        origin: 'borrar'
+      };
+      setShowDialog(true);
+      setModo('navegacion');
+    } else if (boton === 'grabar') {
+      var error = validate()
+      if (error ===''){
+        const ok = await onSave()
+        if (ok) {
+          setModo('navegacion')
+        }
+      } else {
+        setErrorMsg(error)
+      }
+    } else if (boton === 'cancelar') {
+      onCancel()
+      setModo('navegacion') 
     } else if (boton === 'limpiar') {
-      onLimpiar()
+      onClear()
       setModo('consulta')
       setErrorMsg('')
     } else if (boton === 'consultar') {
@@ -49,7 +72,7 @@ const HerramientasCom = ({
   }
   const onEnable = (modoActual, boton) => {
     const botonesPorModo = {
-      consulta: ['consultar'],
+      consulta: ['nuevo', 'consultar'],
       navegacion: [
         'nuevo',
         'editar',
@@ -333,12 +356,13 @@ const HerramientasCom = ({
       {showDialog && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
           <div className='bg-inf2 p-6 rounded-lg shadow-lg text-center m-6'>
-            <p className='mb-4 text-lg font-semibold'>{dialogMessage}</p>
+            <p className='mb-4 text-lg font-semibold'>{dialogRef.current.msg}</p>
             <div className='flex justify-center gap-4'>
               <button
                 onClick={() => {
-                  if (onConfirm) onConfirm()
+                  if (onConfirm) onConfirm(dialogRef.current.origin)
                   handleCloseDialog()
+                  dialogRef.current = { msg: '', origin: '' }
                 }}
                 className='px-6 py-3 bg-inf7 text-white rounded-md font-medium'
               >

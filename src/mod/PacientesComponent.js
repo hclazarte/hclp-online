@@ -7,12 +7,37 @@ const PacientesComponent = forwardRef(
       const { name, value } = e.target
       setPaciente((prev) => ({ ...prev, [name]: value }))
     }
-
     useImperativeHandle(ref, () => ({
       getPaciente: () => {
         return paciente
       }
     }))
+    useImperativeHandle(ref, () => ({
+      getPaciente: () => paciente,
+      validatePaciente: () => validatePaciente(paciente)
+    }))
+    const validatePaciente = (paciente) => {
+      if (!paciente.nombre?.trim()) {
+        return 'El nombre es obligatorio.';
+      }
+      if (!paciente.apellido_paterno?.trim()) {
+        return 'El apellido paterno es obligatorio.';
+      }
+      if (!paciente.cedula?.trim()) {
+        return 'La cédula es obligatoria.';
+      }
+      if (!paciente.fecha_nacimiento?.trim()) {
+        return 'La fecha de nacimiento es obligatoria.';
+      }
+      if (!paciente.tipo_sangre?.trim()) {
+        return 'El tipo de sangre es obligatorio.';
+      }
+      if (!paciente.estado?.trim()) {
+        return 'El estado es obligatorio.';
+      }
+    
+      return '';
+    }  
 
     return (
       <div className='flex flex-col items-center min-h-screen overflow-auto h-screen'>
@@ -54,15 +79,19 @@ const PacientesComponent = forwardRef(
               className={`w-full p-3 rounded-lg border ${estilosModo[modo]}`}
               disabled={modo === 'navegacion'}
             />
-            <input
-              type='text'
+            <select
               name='estado_civil'
-              placeholder='Estado Civil'
               value={paciente.estado_civil || ''}
               onChange={handleChange}
               className={`w-full p-3 rounded-lg border ${estilosModo[modo]}`}
               disabled={modo === 'navegacion'}
-            />
+            >
+              <option value=''>Estado Civil</option>
+              <option value='soltero'>Soltero</option>
+              <option value='casado'>Casado</option>
+              <option value='divorciado'>Divorciado</option>
+              <option value='viudo'>Viudo</option>
+            </select>
             <input
               type='text'
               name='ocupacion'
@@ -130,15 +159,15 @@ const PacientesComponent = forwardRef(
               disabled={modo === 'navegacion'}
             />
             <select
-              name='tipo_Paciente'
-              value={paciente.tipo_Paciente || ''}
+              name='tipo_afiliado'
+              value={paciente.tipo_afiliado || ''}
               onChange={handleChange}
               className={`w-full p-3 rounded-lg border ${estilosModo[modo]}`}
               disabled={modo === 'navegacion'}
             >
-              <option value=''>Tipo Paciente</option>
-              <option value='Titular'>Titular</option>
-              <option value='Beneficiario'>Beneficiario</option>
+              <option value=''>Tipo de Afiliado</option>
+              <option value='titular'>Titular</option>
+              <option value='beneficiario'>Beneficiario</option>
             </select>
             <select
               name='tipo_sangre'
@@ -148,9 +177,14 @@ const PacientesComponent = forwardRef(
               disabled={modo === 'navegacion'}
             >
               <option value=''>Tipo de Sangre</option>
-              <option value='A+'>A+</option>
-              <option value='O-'>O-</option>
-              {/* Agrega los que necesites */}
+              <option value='orh_n'>O-</option>
+              <option value='orh_p'>O+</option>
+              <option value='arh_n'>A-</option>
+              <option value='arh_p'>A+</option>
+              <option value='brh_n'>B-</option>
+              <option value='brh_p'>B+</option>
+              <option value='abrh_n'>AB-</option>
+              <option value='abrh_p'>AB+</option>
             </select>
             <select
               name='estado'
@@ -160,8 +194,8 @@ const PacientesComponent = forwardRef(
               disabled={modo === 'navegacion'}
             >
               <option value=''>Estado</option>
-              <option value='Activo'>Activo</option>
-              <option value='Inactivo'>Inactivo</option>
+              <option value='alta'>Activo</option>
+              <option value='baja'>Inactivo</option>
             </select>
           </form>
         </div>
