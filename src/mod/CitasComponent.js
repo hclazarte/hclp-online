@@ -31,9 +31,13 @@ const CitasComponent = () => {
           body: JSON.stringify({ especialidad_id: especialidadId })
         }
       )
+      setShowSpinner(false)
+      if (response.status === 401) {
+        window.location.href = '/'
+        return
+      }
       const data = await response.json()
       setCitas(data)
-      setShowSpinner(false)
     }
 
     fetchCitas()
@@ -69,13 +73,17 @@ const CitasComponent = () => {
       },
       body: JSON.stringify(payload)
     })
+    setShowDialog(false)
+    if (response.status === 401) {
+      window.location.href = '/'
+      return
+    }
 
     if (response.ok) {
-      alert('✅ Cita agendada exitosamente')
-      setShowDialog(false)
+      alert('Cita agendada exitosamente')
     } else {
       const err = await response.text()
-      alert(`❌ Error al agendar cita: ${err}`)
+      alert(`Error al agendar cita: ${err}`)
     }
   }
 

@@ -64,8 +64,11 @@ const Pacientes = () => {
         }
       }
     )
-
     setShowSpinner(false)
+    if (response.status === 401) {
+      window.location.href = '/'
+      return
+    }
 
     if (!response.ok) {
       const error = await response.text()
@@ -119,8 +122,11 @@ const Pacientes = () => {
         }
       )
     }
-
     setShowSpinner(false)
+    if (response.status === 401) {
+      window.location.href = '/'
+      return
+    }
 
     if (!response.ok) {
       const error = await response.text()
@@ -158,6 +164,11 @@ const Pacientes = () => {
       }
     )
     setShowSpinner(false)
+    if (response.status === 401) {
+      window.location.href = '/'
+      return
+    }
+    
     if (!response.ok) {
       const error = await response.text()
       setErrorMsg(`No se pudo leer el registro ${errorMsg}`)
