@@ -50,34 +50,34 @@ const Pacientes = () => {
     pacienteUndoRef.current = pacientesRef.current.getPaciente()
   }
   const onDelete = async () => {
-    const token = localStorage.getItem('access_token');
-    const pacienteDelete = pacientesRef.current.getPaciente();
-    
-    setShowSpinner(true);
-    
+    const token = localStorage.getItem('access_token')
+    const pacienteDelete = pacientesRef.current.getPaciente()
+
+    setShowSpinner(true)
+
     const response = await fetch(
       `${window.infoConfig.apiUrl}/pacientes/${pacienteDelete.id}`,
       {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       }
-    );
-    
-    setShowSpinner(false);
-    
+    )
+
+    setShowSpinner(false)
+
     if (!response.ok) {
-      const error = await response.text();
-      setErrorMsg(`No se pudo eliminar el registro ${errorMsg}`);
-      return false;
+      const error = await response.text()
+      setErrorMsg(`No se pudo eliminar el registro ${errorMsg}`)
+      return false
     }
-    
-    setErrorMsg('');
+
+    setErrorMsg('')
     if (pageRef.current === pageMaxRef.current) pageRef.current -= 1
-    if (pageRef.current > 0 ) {
+    if (pageRef.current > 0) {
       await filtrar()
-    }else{
+    } else {
       setPaciente({})
       setResult({})
       setModo('consulta')
@@ -88,14 +88,14 @@ const Pacientes = () => {
     setPaciente(pacienteUndoRef.current)
   }
   const onSave = async () => {
-    const token = localStorage.getItem('access_token');
-    const pacienteEditOrNew = pacientesRef.current.getPaciente();
-    
-    setShowSpinner(true);
-    
-    let response;
+    const token = localStorage.getItem('access_token')
+    const pacienteEditOrNew = pacientesRef.current.getPaciente()
+
+    setShowSpinner(true)
+
+    let response
     let isNew = false
-    
+
     if (pacienteEditOrNew.id === undefined) {
       let isNew = true
       response = await fetch(`${window.infoConfig.apiUrl}/pacientes`, {
@@ -105,32 +105,35 @@ const Pacientes = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ paciente: pacienteEditOrNew })
-      });
+      })
     } else {
-      response = await fetch(`${window.infoConfig.apiUrl}/pacientes/${pacienteEditOrNew.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ paciente: pacienteEditOrNew })
-      });
+      response = await fetch(
+        `${window.infoConfig.apiUrl}/pacientes/${pacienteEditOrNew.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ paciente: pacienteEditOrNew })
+        }
+      )
     }
-    
-    setShowSpinner(false);
-    
+
+    setShowSpinner(false)
+
     if (!response.ok) {
-      const error = await response.text();
-      setErrorMsg(`No se pudo guardar el registro ${errorMsg}`);
-      return false;
+      const error = await response.text()
+      setErrorMsg(`No se pudo guardar el registro ${errorMsg}`)
+      return false
     }
-    
-    const data = await response.json();
+
+    const data = await response.json()
     let includeID = data.id
-    setErrorMsg('');
+    setErrorMsg('')
     if (isNew) pageRef.current = 1
-    filtrar(includeID); 
-    setModo('navegacion');
+    filtrar(includeID)
+    setModo('navegacion')
     return true
   }
   const validate = () => {
@@ -157,7 +160,7 @@ const Pacientes = () => {
     setShowSpinner(false)
     if (!response.ok) {
       const error = await response.text()
-      setErrorMsg(`No se pudo leer el registro ${errorMsg}`);
+      setErrorMsg(`No se pudo leer el registro ${errorMsg}`)
       return false
     }
 

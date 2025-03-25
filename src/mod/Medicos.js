@@ -50,34 +50,34 @@ const Medicos = () => {
     medicoUndoRef.current = medicosRef.current.getMedico()
   }
   const onDelete = async () => {
-    const token = localStorage.getItem('access_token');
-    const medicoDelete = medicosRef.current.getMedico();
-    
-    setShowSpinner(true);
-    
+    const token = localStorage.getItem('access_token')
+    const medicoDelete = medicosRef.current.getMedico()
+
+    setShowSpinner(true)
+
     const response = await fetch(
       `${window.infoConfig.apiUrl}/medicos/${medicoDelete.id}`,
       {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       }
-    );
-    
-    setShowSpinner(false);
-    
+    )
+
+    setShowSpinner(false)
+
     if (!response.ok) {
-      const error = await response.text();
-      setErrorMsg(`No se pudo eliminar el registro ${errorMsg}`);
-      return false;
+      const error = await response.text()
+      setErrorMsg(`No se pudo eliminar el registro ${errorMsg}`)
+      return false
     }
-    
-    setErrorMsg('');
+
+    setErrorMsg('')
     if (pageRef.current === pageMaxRef.current) pageRef.current -= 1
-    if (pageRef.current > 0 ) {
+    if (pageRef.current > 0) {
       await filtrar()
-    }else{
+    } else {
       setMedico({})
       setResult({})
       setModo('consulta')
@@ -88,14 +88,14 @@ const Medicos = () => {
     setMedico(medicoUndoRef.current)
   }
   const onSave = async () => {
-    const token = localStorage.getItem('access_token');
-    const medicoEditOrNew = medicosRef.current.getMedico();
-    
-    setShowSpinner(true);
-    
-    let response;
+    const token = localStorage.getItem('access_token')
+    const medicoEditOrNew = medicosRef.current.getMedico()
+
+    setShowSpinner(true)
+
+    let response
     let isNew = false
-    
+
     if (medicoEditOrNew.id === undefined) {
       isNew = true
       response = await fetch(`${window.infoConfig.apiUrl}/medicos`, {
@@ -105,32 +105,35 @@ const Medicos = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(medicoEditOrNew)
-      });
+      })
     } else {
-      response = await fetch(`${window.infoConfig.apiUrl}/medicos/${medicoEditOrNew.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(medicoEditOrNew)
-      });
+      response = await fetch(
+        `${window.infoConfig.apiUrl}/medicos/${medicoEditOrNew.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(medicoEditOrNew)
+        }
+      )
     }
-    
-    setShowSpinner(false);
-    
+
+    setShowSpinner(false)
+
     if (!response.ok) {
-      const error = await response.text();
-      setErrorMsg(`No se pudo guardar el registro ${errorMsg}`);
-      return false;
+      const error = await response.text()
+      setErrorMsg(`No se pudo guardar el registro ${errorMsg}`)
+      return false
     }
-    
-    const data = await response.json();
+
+    const data = await response.json()
     let includeID = data.id
-    setErrorMsg('');
+    setErrorMsg('')
     if (isNew) pageRef.current = 1
-    filtrar(includeID);
-    setModo('navegacion');
+    filtrar(includeID)
+    setModo('navegacion')
     return true
   }
   const validate = () => {
@@ -157,7 +160,7 @@ const Medicos = () => {
     setShowSpinner(false)
     if (!response.ok) {
       const error = await response.text()
-      setErrorMsg(`No se pudo leer el registro ${errorMsg}`);
+      setErrorMsg(`No se pudo leer el registro ${errorMsg}`)
       return false
     }
 

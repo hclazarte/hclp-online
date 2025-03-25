@@ -20,14 +20,17 @@ const CitasComponent = () => {
     const fetchCitas = async () => {
       const token = localStorage.getItem('access_token')
       setShowSpinner(true)
-      const response = await fetch(`${window.infoConfig.apiUrl}/citas/disponibles`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ especialidad_id: especialidadId })
-      })
+      const response = await fetch(
+        `${window.infoConfig.apiUrl}/citas/disponibles`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ especialidad_id: especialidadId })
+        }
+      )
       const data = await response.json()
       setCitas(data)
       setShowSpinner(false)
@@ -83,7 +86,8 @@ const CitasComponent = () => {
         value={especialidadId}
         onChange={(e) => {
           const id = parseInt(e.target.value)
-          const nombre = ESPECIALIDADES.find((esp) => esp.id === id)?.nombre || ''
+          const nombre =
+            ESPECIALIDADES.find((esp) => esp.id === id)?.nombre || ''
           setEspecialidadId(id)
           setEspecialidadNombre(nombre)
         }}
@@ -118,7 +122,8 @@ const CitasComponent = () => {
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
           <div className='bg-inf2 p-6 rounded-lg shadow-lg text-center m-6'>
             <p className='mb-4 text-lg font-semibold'>
-              ¿Agendar cita con {selectedCita.medico_nombre} el {selectedCita.dia} {selectedCita.fecha} a las {selectedCita.hora}?
+              ¿Agendar cita con {selectedCita.medico_nombre} el{' '}
+              {selectedCita.dia} {selectedCita.fecha} a las {selectedCita.hora}?
             </p>
             <div className='flex justify-center gap-4'>
               <button

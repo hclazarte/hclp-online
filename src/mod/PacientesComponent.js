@@ -18,26 +18,26 @@ const PacientesComponent = forwardRef(
     }))
     const validatePaciente = (paciente) => {
       if (!paciente.nombre?.trim()) {
-        return 'El nombre es obligatorio.';
+        return 'El nombre es obligatorio.'
       }
       if (!paciente.apellido_paterno?.trim()) {
-        return 'El apellido paterno es obligatorio.';
+        return 'El apellido paterno es obligatorio.'
       }
       if (!paciente.cedula?.trim()) {
-        return 'La cédula es obligatoria.';
+        return 'La cédula es obligatoria.'
       }
       if (!paciente.fecha_nacimiento?.trim()) {
-        return 'La fecha de nacimiento es obligatoria.';
+        return 'La fecha de nacimiento es obligatoria.'
       }
       if (!paciente.tipo_sangre?.trim()) {
-        return 'El tipo de sangre es obligatorio.';
+        return 'El tipo de sangre es obligatorio.'
       }
       if (!paciente.estado?.trim()) {
-        return 'El estado es obligatorio.';
+        return 'El estado es obligatorio.'
       }
-    
-      return '';
-    }  
+
+      return ''
+    }
 
     return (
       <div className='flex flex-col items-center min-h-screen overflow-auto h-screen'>

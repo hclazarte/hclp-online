@@ -17,11 +17,11 @@ const HerramientasCom = ({
   validate
 }) => {
   const [showDialog, setShowDialog] = useState(false)
-  const dialogRef = useRef({ msg: '', origin: '' });
-  
+  const dialogRef = useRef({ msg: '', origin: '' })
+
   const onConfirm = (origin) => {
     if (origin === 'borrar') {
-      onDelete();
+      onDelete()
     }
   }
   const handleCloseDialog = () => {
@@ -39,12 +39,12 @@ const HerramientasCom = ({
       dialogRef.current = {
         msg: '¿Estás seguro que deseas borrar este registro?',
         origin: 'borrar'
-      };
-      setShowDialog(true);
-      setModo('navegacion');
+      }
+      setShowDialog(true)
+      setModo('navegacion')
     } else if (boton === 'grabar') {
       var error = validate()
-      if (error ===''){
+      if (error === '') {
         const ok = await onSave()
         if (ok) {
           setModo('navegacion')
@@ -54,7 +54,7 @@ const HerramientasCom = ({
       }
     } else if (boton === 'cancelar') {
       onCancel()
-      setModo('navegacion') 
+      setModo('navegacion')
     } else if (boton === 'limpiar') {
       onClear()
       setModo('consulta')
@@ -95,6 +95,7 @@ const HerramientasCom = ({
         <div className='flex flex-wrap gap-1 justify-between w-auto'>
           <button
             onClick={() => handleClick('nuevo')}
+            disabled={!onEnable(modo, 'nuevo')}
             className={`p-1 rounded ${onEnable(modo, 'nuevo') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -123,6 +124,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('editar')}
+            disabled={!onEnable(modo, 'editar')}
             className={`p-1 rounded ${onEnable(modo, 'editar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -141,6 +143,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('borrar')}
+            disabled={!onEnable(modo, 'borrar')}
             className={`p-1 rounded ${onEnable(modo, 'borrar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -171,6 +174,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('grabar')}
+            disabled={!onEnable(modo, 'grabar')}
             className={`p-1 rounded ${onEnable(modo, 'grabar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -189,6 +193,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('cancelar')}
+            disabled={!onEnable(modo, 'cancelar')}
             className={`p-1 rounded ${onEnable(modo, 'cancelar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -209,6 +214,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('limpiar')}
+            disabled={!onEnable(modo, 'limpiar')}
             className={`p-1 rounded ${onEnable(modo, 'limpiar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -234,6 +240,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('consultar')}
+            disabled={!onEnable(modo, 'consultar')}
             className={`p-1 rounded ${onEnable(modo, 'consultar') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -262,6 +269,7 @@ const HerramientasCom = ({
         <div className='flex flex-wrap gap-1 justify-between w-auto'>
           <button
             onClick={() => handleClick('primero')}
+            disabled={!onEnable(modo, 'primero')}
             className={`p-1 rounded ${onEnable(modo, 'primero') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -282,6 +290,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('anterior')}
+            disabled={!onEnable(modo, 'anterior')}
             className={`p-1 rounded ${onEnable(modo, 'anterior') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -310,6 +319,7 @@ const HerramientasCom = ({
           </div>
           <button
             onClick={() => handleClick('siguiente')}
+            disabled={!onEnable(modo, 'siguiente')}
             className={`p-1 rounded ${onEnable(modo, 'siguiente') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -330,6 +340,7 @@ const HerramientasCom = ({
           </button>
           <button
             onClick={() => handleClick('ultimo')}
+            disabled={!onEnable(modo, 'ultimo')}
             className={`p-1 rounded ${onEnable(modo, 'ultimo') ? 'bg-inf4 text-white' : 'bg-inf3 opacity-50 cursor-not-allowed'}`}
           >
             <svg
@@ -356,7 +367,9 @@ const HerramientasCom = ({
       {showDialog && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
           <div className='bg-inf2 p-6 rounded-lg shadow-lg text-center m-6'>
-            <p className='mb-4 text-lg font-semibold'>{dialogRef.current.msg}</p>
+            <p className='mb-4 text-lg font-semibold'>
+              {dialogRef.current.msg}
+            </p>
             <div className='flex justify-center gap-4'>
               <button
                 onClick={() => {
