@@ -52,8 +52,27 @@ const MedicosComponent = forwardRef(({ modo, medico, setMedico }, ref) => {
       especialidades: updated
     })
   }
+  const handleHorarioChange = (index, campo, valor) => {
+    const nuevosHorarios = [...medico.horario_medicos]
+    nuevosHorarios[index][campo] = valor
+    setMedico({ ...medico, horario_medicos: nuevosHorarios })
+  }
+  const agregarHorario = () => {
+    const nuevosHorarios = [
+      ...medico.horario_medicos,
+      {
+        dia: '',
+        hora_inicio: '',
+        hora_fin: ''
+      }
+    ]
+    setMedico({ ...medico, horario_medicos: nuevosHorarios })
+  }
+  const borrarHorario = (index) => {
+    const nuevosHorarios = medico.horario_medicos.filter((_, i) => i !== index)
+    setMedico({ ...medico, horario_medicos: nuevosHorarios })
+  }  
 
-  const handleHorarioChange = () => {}
 
   const validateMedico = (medico) => {
     if (!medico.nombre || medico.nombre.trim() === '') {
@@ -216,6 +235,15 @@ const MedicosComponent = forwardRef(({ modo, medico, setMedico }, ref) => {
             <label className='block text-sm font-medium text-gray-700 mb-1'>
               Horarios
             </label>
+            {modo !== 'navegacion' && (
+              <button
+                type="button"
+                onClick={agregarHorario}
+                className="mt-2 px-4 py-2 bg-inf5 text-white rounded"
+              >
+                ➕ Añadir horario
+              </button>
+            )}
             {medico.horario_medicos?.map((horario, index) => (
               <div key={index} className='flex flex-col gap-2 mb-4'>
                 <div className='flex gap-2'>
@@ -233,7 +261,11 @@ const MedicosComponent = forwardRef(({ modo, medico, setMedico }, ref) => {
                   <input
                     type='time'
                     name={`horario-${index}-hora_inicio`}
-                    value={horario.hora_inicio?.slice(11, 16) || ''}
+                    value={
+                      horario.hora_inicio?.length > 5
+                        ? horario.hora_inicio.slice(11, 16)
+                        : horario.hora_inicio || ''
+                    }
                     placeholder='Hora Inicio'
                     onChange={(e) =>
                       handleHorarioChange(index, 'hora_inicio', e.target.value)
@@ -244,7 +276,11 @@ const MedicosComponent = forwardRef(({ modo, medico, setMedico }, ref) => {
                   <input
                     type='time'
                     name={`horario-${index}-hora_fin`}
-                    value={horario.hora_fin?.slice(11, 16) || ''}
+                    value={
+                      horario.hora_fin?.length > 5
+                        ? horario.hora_fin.slice(11, 16)
+                        : horario.hora_fin || ''
+                    }                    
                     placeholder='Hora Fin'
                     onChange={(e) =>
                       handleHorarioChange(index, 'hora_fin', e.target.value)
@@ -252,6 +288,15 @@ const MedicosComponent = forwardRef(({ modo, medico, setMedico }, ref) => {
                     className={`w-1/3 p-2 rounded-lg border ${estilosModo[modo]}`}
                     disabled={modo === 'navegacion'}
                   />
+                  {modo !== 'navegacion' && (
+                    <button
+                      type="button"
+                      onClick={() => borrarHorario(index)}
+                      className="text-red-500 font-bold"
+                    >
+                      ❌
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
